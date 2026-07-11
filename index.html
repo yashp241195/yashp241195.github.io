@@ -1,64 +1,1091 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://avatars.githubusercontent.com/u/26461059?s=400&u=4e2a0f6a44489a346fdea6991ad2a252233e9376&v=4" type="image/gif">
-    <title>Yash Pratap</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        const mypages = [
-            { name: "Outline", src:"pages/outline.html"},
-            { name: "Projects", src:"pages/projects.html"},
-        ];
-
-        const navWrap = (page) => `<li class="nav-item"><a class="nav-link" href="#" data-src="${page.src}">${page.name}</a></li>`;
-
-        $(document).ready(function(){
-            $("#navigation").html('<ul class="nav">' + mypages.map(item => navWrap(item)).join('') + '</ul>');
-            $("a.nav-link").click(function(){
-                $("#page").html('<embed type="text/html" width="100%" height="100%" src="' + $(this).data("src") + '">');
-            });
-            $("#page").html('<embed type="text/html" width="100%" height="100%" src="pages/outline.html">');
-        });
-    </script>
-    <style>
-        #page {
-            height: 95vh;
-            width: 100%;
-            overflow: hidden;
-        }
-        @media (max-width: 768px) {
-            .nav {
-                flex-direction: row;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-            .nav-item {
-                flex: 1;
-                text-align: center;
-            }
-        }
-        @media (min-width: 769px) {
-            .nav {
-                flex-direction: column;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Yash Pratap · Portfolio</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <style>
+    /* ===== BASE ===== */
+    * { box-sizing: border-box; }
+    body {
+      background: #e8ecf2;
+      color: #0a1628;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+    }
+    .container { max-width: 880px; }
+    
+    /* ===== NAVBAR ===== */
+    .bg-blue-header {
+      background: #c8d4e4;
+      border-bottom: 1px solid #a8b8cc;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .navbar-light .navbar-brand {
+      color: #0a1628;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .navbar-light .navbar-nav .nav-link {
+      color: #0a1628;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .navbar-light .navbar-nav .nav-link:hover,
+    .navbar-light .navbar-nav .nav-link.active {
+      color: #1a4a7a;
+      background: rgba(26, 74, 122, 0.10);
+    }
+    .navbar-light .navbar-toggler { border-color: #a8b8cc; }
+    
+    /* ===== SECTIONS ===== */
+    .page-section { padding: 3.5rem 0; }
+    .page-section:nth-child(even) { background: #eef2f8; }
+    .page-section:nth-child(odd) { background: #e2e8f0; }
+    
+    .section-title {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      border-bottom: 3px solid #1a4a7a;
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.5rem;
+      color: #0a1628;
+      display: inline-block;
+    }
+    
+    /* ===== HERO ===== */
+    .hero-blue {
+      background: linear-gradient(145deg, #8aaac8 0%, #a8c0d8 50%, #8aaac8 100%);
+      padding: 4.5rem 0 4rem;
+      margin-top: 56px;
+      border-bottom: 1px solid #7090b0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-blue .container { position: relative; z-index: 1; }
+    .hero-blue h1 {
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      font-size: 2.8rem;
+      color: #0a1628;
+    }
+    .hero-blue .lead { color: #0a1628; font-size: 1.15rem; }
+    .hero-tag {
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(4px);
+      color: #0a1628;
+      padding: 0.3rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      display: inline-block;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(4px);
+      color: #0a1628;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s;
+    }
+    .hero-badge:hover { background: rgba(255,255,255,0.5); }
+    
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255,255,255,0.5);
+      background: #d5dde6;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s;
+    }
+    .profile-img:hover {
+      border-color: #1a4a7a;
+      box-shadow: 0 8px 40px rgba(26, 74, 122, 0.12);
+    }
+    
+    /* ===== SOCIAL BUTTONS ===== */
+    .btn-social {
+      border-radius: 30px;
+      padding: 0.4rem 1.4rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .btn-social:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+    .btn-github { background: #d5dde6; color: #0a1628; border-color: #b0bcc8; }
+    .btn-github:hover { background: #c5d0dc; color: #0a1628; border-color: #9aabb8; }
+    .btn-linkedin { background: #dce8f4; color: #0a66c2; border-color: #b8cde0; }
+    .btn-linkedin:hover { background: #c8dcee; color: #0a66c2; border-color: #9ab8d4; }
+    
+    /* ===== SKILLS ===== */
+    .skill-card {
+      background: #eef2f8;
+      border: 1px solid #c8d4e0;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      height: 100%;
+      transition: all 0.25s;
+    }
+    .skill-card:hover {
+      border-color: #1a4a7a;
+      box-shadow: 0 4px 20px rgba(26, 74, 122, 0.08);
+      transform: translateY(-3px);
+      background: #f0f5fa;
+    }
+    .skill-card .category {
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1a4a7a;
+    }
+    .skill-card .items { margin-top: 0.3rem; font-size: 0.92rem; color: #0a1628; }
+    
+    /* ===== PROJECT / SD CARDS ===== */
+    .project-card, .sd-card {
+      background: #eef2f8;
+      border: 1px solid #c8d4e0;
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .project-card:hover, .sd-card:hover {
+      border-color: #1a4a7a;
+      box-shadow: 0 4px 20px rgba(26, 74, 122, 0.08);
+      transform: translateY(-3px);
+    }
+    .project-card .tags, .sd-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .project-card .tags span, .sd-card .tags span {
+      background: rgba(26, 74, 122, 0.06);
+      border: 1px solid rgba(26, 74, 122, 0.08);
+      padding: 0.15rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #1a4a7a;
+    }
+    .project-card h5, .sd-card h5 {
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      color: #0a1628;
+    }
+    .project-card p, .sd-card p {
+      font-size: 0.9rem;
+      color: #0a1628;
+      margin-bottom: 0.3rem;
+    }
+    .project-card .view-detail, .sd-card .view-detail {
+      font-size: 0.82rem;
+      color: #1a4a7a;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .project-card .view-detail:hover, .sd-card .view-detail:hover {
+      color: #0a2a5a;
+      text-decoration: underline;
+    }
+    .sd-card { border-left: 4px solid #1a4a7a; }
+    .sd-card .sd-icon {
+      font-size: 1.8rem;
+      color: #1a4a7a;
+      margin-right: 0.8rem;
+      float: left;
+    }
+    
+    /* ===== PAGINATION ===== */
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .pagination-container .page-btn {
+      background: transparent;
+      border: 2px solid #c8d4e0;
+      color: #0a1628;
+      padding: 0.3rem 0.9rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: all 0.25s;
+      cursor: pointer;
+      min-width: 38px;
+      text-align: center;
+    }
+    .pagination-container .page-btn:hover {
+      border-color: #1a4a7a;
+      background: rgba(26, 74, 122, 0.06);
+    }
+    .pagination-container .page-btn.active {
+      background: #1a4a7a;
+      border-color: #1a4a7a;
+      color: #fff;
+    }
+    .pagination-container .page-btn.arrow {
+      font-size: 1rem;
+      padding: 0.3rem 1rem;
+    }
+    .pagination-container .page-info {
+      font-size: 0.85rem;
+      color: #4a5a6e;
+      padding: 0 0.5rem;
+    }
+    
+    /* ===== DETAIL PAGE ===== */
+    .detail-page {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .detail-page.active { display: block; }
+    .list-page { display: block; }
+    .list-page.hidden { display: none; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .back-btn {
+      background: transparent;
+      border: 2px solid #1a4a7a;
+      color: #1a4a7a;
+      padding: 0.3rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.25s;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+    }
+    .back-btn:hover {
+      background: #1a4a7a;
+      color: #fff;
+    }
+    
+    .detail-section {
+      background: #eef2f8;
+      border: 1px solid #c8d4e0;
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .detail-section .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .detail-section .detail-header h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      color: #0a1628;
+      margin: 0;
+    }
+    .detail-section .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.5rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem 0;
+      border-top: 1px solid #c8d4e0;
+      border-bottom: 1px solid #c8d4e0;
+    }
+    .detail-section .detail-meta span {
+      font-size: 0.9rem;
+      color: #0a1628;
+    }
+    .detail-section .detail-meta strong { color: #1a4a7a; }
+    .detail-section .detail-body h4 {
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #0a1628;
+    }
+    .detail-section .detail-body ul {
+      padding-left: 1.2rem;
+      color: #0a1628;
+    }
+    .detail-section .detail-body ul li { margin-bottom: 0.3rem; }
+    .detail-section .detail-body .tech-badge {
+      display: inline-block;
+      background: rgba(26, 74, 122, 0.08);
+      border: 1px solid rgba(26, 74, 122, 0.08);
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #1a4a7a;
+      font-weight: 500;
+      margin-right: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .detail-section .detail-body .highlight-box {
+      background: rgba(26, 74, 122, 0.04);
+      border-left: 4px solid #1a4a7a;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    /* ===== CONTACT ===== */
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #c8d4e0;
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-item i {
+      font-size: 1.3rem;
+      color: #1a4a7a;
+      width: 2rem;
+      text-align: center;
+    }
+    .contact-item a { color: #0a1628; text-decoration: none; font-weight: 500; }
+    .contact-item a:hover { color: #1a4a7a; text-decoration: underline; }
+    
+    /* ===== FOOTER ===== */
+    footer {
+      background: #c8d4e4;
+      border-top: 1px solid #a8b8cc;
+      padding: 1.5rem 0;
+    }
+    .footer-links a {
+      color: #0a1628;
+      margin: 0 0.5rem;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #1a4a7a; }
+    .text-muted-light { color: #0a1628; }
+    
+    /* ===== ITEMS PER PAGE COUNTER ===== */
+    .items-per-page {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #0a1628;
+    }
+    .items-per-page select {
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #c8d4e0;
+      background: #fff;
+      color: #0a1628;
+      font-size: 0.85rem;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-blue h1 { font-size: 2.2rem; }
+      .profile-img { width: 100px; height: 100px; }
+      .page-section { padding: 2.5rem 0; }
+      .detail-section { padding: 1.2rem; }
+      .detail-section .detail-header h2 { font-size: 1.5rem; }
+    }
+    @media (max-width: 576px) {
+      .hero-blue h1 { font-size: 1.8rem; }
+      .profile-img { width: 80px; height: 80px; }
+      .section-title { font-size: 1.2rem; }
+      .page-section { padding: 2rem 0; }
+      .hero-blue { padding: 3rem 0 2.5rem; }
+      .detail-section { padding: 1rem; }
+      .detail-section .detail-header h2 { font-size: 1.3rem; }
+      .pagination-container .page-btn { padding: 0.2rem 0.6rem; font-size: 0.75rem; min-width: 30px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div id="navigation" class="col-md-3"></div>
-            <div id="page" class="col-md-9"></div>
-        </div>
-    </div>
 
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-md navbar-light bg-blue-header py-2 fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="bi bi-terminal me-1" style="color: #1a4a7a;"></i> yash.dev
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills-section">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#system-design-section">System Design</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects-section">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero-blue" id="home">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <span class="hero-tag mb-2">software engineer</span>
+        <h1 class="display-4 fw-bold mt-1">Yash Pratap</h1>
+        <p class="lead">Web Development · System Design · AI</p>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <span class="hero-badge"><i class="bi bi-check-circle-fill" style="color:#1a4a7a; font-size:0.7rem;"></i> ReactJS · MERN</span>
+          <span class="hero-badge"><i class="bi bi-check-circle-fill" style="color:#1a4a7a; font-size:0.7rem;"></i> Docker · Linux</span>
+          <span class="hero-badge"><i class="bi bi-check-circle-fill" style="color:#1a4a7a; font-size:0.7rem;"></i> Python · TensorFlow</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <a href="#" class="btn btn-github btn-social"><i class="bi bi-github"></i> GitHub</a>
+          <a href="#" class="btn btn-linkedin btn-social"><i class="bi bi-linkedin"></i> LinkedIn</a>
+        </div>
+      </div>
+      <div class="col-md-4 text-center text-md-end mt-4 mt-md-0">
+        <img src="images/profile.png" alt="Yash Pratap" class="profile-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section class="page-section" id="skills-section">
+  <div class="container">
+    <h2 class="section-title">Skills</h2>
+    <div class="row g-3" id="skillsContainer"></div>
+  </div>
+</section>
+
+<!-- ===== SYSTEM DESIGN ===== -->
+<section class="page-section" id="system-design-section">
+  <div class="container">
+    <h2 class="section-title"><i class="bi bi-diagram-3 me-2" style="color:#1a4a7a;"></i>System Design</h2>
+    <p class="text-muted-light mb-3">Click on any design to view detailed architecture explanation.</p>
+    
+    <!-- List View -->
+    <div id="sd-list" class="list-page">
+      <div class="items-per-page">
+        <span>Show:</span>
+        <select id="sd-items-per-page" onchange="changeSdItemsPerPage()">
+          <option value="2">2</option>
+          <option value="4" selected>4</option>
+          <option value="6">6</option>
+          <option value="10">10</option>
+        </select>
+        <span>items per page</span>
+      </div>
+      <div id="systemDesignList"></div>
+      <div class="pagination-container" id="sd-pagination"></div>
+    </div>
+    
+    <!-- Detail View -->
+    <div id="sd-detail" class="detail-page">
+      <button class="back-btn" onclick="showList('sd')"><i class="bi bi-arrow-left me-1"></i> Back to System Designs</button>
+      <div id="sd-detail-content"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="page-section" id="projects-section">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+    <p class="text-muted-light mb-3">Click on any project to view full details, architecture, and insights.</p>
+    
+    <!-- List View -->
+    <div id="project-list" class="list-page">
+      <div class="items-per-page">
+        <span>Show:</span>
+        <select id="project-items-per-page" onchange="changeProjectItemsPerPage()">
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="6">6</option>
+          <option value="10">10</option>
+        </select>
+        <span>items per page</span>
+      </div>
+      <div id="projectList"></div>
+      <div class="pagination-container" id="project-pagination"></div>
+    </div>
+    
+    <!-- Detail View -->
+    <div id="project-detail" class="detail-page">
+      <button class="back-btn" onclick="showList('project')"><i class="bi bi-arrow-left me-1"></i> Back to Projects</button>
+      <div id="project-detail-content"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="page-section" id="contact">
+  <div class="container">
+    <h2 class="section-title">Contact</h2>
+    <div class="row">
+      <div class="col-md-8">
+        <div id="contactList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <span class="small text-muted-light">© 2026 Yash Pratap</span>
+    <div class="footer-links" id="footerLinks"></div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(function() {
+
+  // -------- DATA (More items for pagination demo) --------
+  const skillsData = [
+    { category: 'Frontend', items: 'ReactJS, Next.js, Tailwind, TypeScript' },
+    { category: 'Backend', items: 'Node.js, Python, Go, Java' },
+    { category: 'Databases', items: 'PostgreSQL, MongoDB, Redis, Cassandra' },
+    { category: 'Tools', items: 'Docker, Kubernetes, Git, Linux, AWS' }
+  ];
+
+  // 8 System Designs for pagination demo
+  const systemDesigns = [
+    {
+      id: 'sd1',
+      icon: 'bi-cloud-upload',
+      title: 'Event-Driven Microservices Architecture',
+      tech: 'Kafka · Go · MongoDB · Kubernetes',
+      summary: 'Decoupled microservices architecture for a fintech platform handling 50k+ transactions/day.',
+      details: ['Used event-driven communication with Kafka', 'Implemented Event Sourcing for audit trail', 'CQRS pattern for read/write separation', 'Circuit Breaker for fault tolerance', 'Distributed tracing with Jaeger'],
+      challenges: 'Event ordering and idempotency across services.',
+      outcome: 'Reduced latency by 40%, achieved 99.95% uptime.',
+      tech: ['Kafka', 'Go', 'MongoDB', 'Kubernetes', 'Jaeger']
+    },
+    {
+      id: 'sd2',
+      icon: 'bi-database-gear',
+      title: 'Multi-Region Database Strategy',
+      tech: 'PostgreSQL · DynamoDB · Redis · AWS',
+      summary: 'Active-active replication across 3 AWS regions for global low-latency access.',
+      details: ['Active-Active replication', 'Conflict resolution strategies', 'Read replicas for optimization', 'Sharding for horizontal scaling'],
+      challenges: 'Data consistency across regions with network latency.',
+      outcome: 'Reduced read latency by 60% for APAC and EU users.',
+      tech: ['PostgreSQL', 'DynamoDB', 'Redis', 'AWS']
+    },
+    {
+      id: 'sd3',
+      icon: 'bi-speedometer2',
+      title: 'High-Performance API Gateway',
+      tech: 'Go · Redis · gRPC · Envoy',
+      summary: 'Custom API gateway handling 10k+ RPS with rate limiting and circuit breaker.',
+      details: ['Rate limiting with token bucket', 'Circuit breaker pattern', 'JWT authentication', 'gRPC load balancing'],
+      challenges: 'Low latency while applying rate limiting and auth.',
+      outcome: '10k+ RPS with p99 latency under 50ms.',
+      tech: ['Go', 'Redis', 'gRPC', 'Envoy']
+    },
+    {
+      id: 'sd4',
+      icon: 'bi-cpu',
+      title: 'Real-Time Data Processing Pipeline',
+      tech: 'Python · Redis · WebSocket · Kafka',
+      summary: 'Real-time pipeline processing 10k+ events/sec with sub-100ms latency.',
+      details: ['Stream processing with Redis Streams', 'WebSocket for live dashboards', 'Horizontal scaling with Kafka', 'Exactly-once processing'],
+      challenges: 'Backpressure and exactly-once processing.',
+      outcome: '10k+ events/sec, sub-100ms latency, 99.9% uptime.',
+      tech: ['Python', 'Redis', 'WebSocket', 'Kafka']
+    },
+    {
+      id: 'sd5',
+      icon: 'bi-boxes',
+      title: 'Distributed Caching Layer',
+      tech: 'Redis · Memcached · AWS ElastiCache',
+      summary: 'Multi-tier caching strategy reducing database load by 70%.',
+      details: ['Redis for session caching', 'Memcached for query caching', 'Cache invalidation strategies', 'Cache-aside pattern'],
+      challenges: 'Cache invalidation and consistency.',
+      outcome: '70% reduction in database load, 40% faster response times.',
+      tech: ['Redis', 'Memcached', 'AWS ElastiCache']
+    },
+    {
+      id: 'sd6',
+      icon: 'bi-shield-lock',
+      title: 'Zero-Trust Security Architecture',
+      tech: 'OAuth2 · JWT · Vault · TLS',
+      summary: 'Zero-trust security model with service-to-service authentication.',
+      details: ['OAuth2 with PKCE', 'JWT for service-to-service', 'Vault for secrets management', 'mTLS for internal communication'],
+      challenges: 'Managing rotating credentials across 50+ services.',
+      outcome: 'Zero security incidents in 18 months.',
+      tech: ['OAuth2', 'JWT', 'Vault', 'TLS']
+    },
+    {
+      id: 'sd7',
+      icon: 'bi-graph-up',
+      title: 'Real-Time Analytics Platform',
+      tech: 'ClickHouse · Kafka · Grafana',
+      summary: 'Real-time analytics platform processing 100k+ events/sec.',
+      details: ['ClickHouse for OLAP queries', 'Kafka for event ingestion', 'Grafana for visualization', 'Custom aggregation pipelines'],
+      challenges: 'Query performance at scale with 100k+ events/sec.',
+      outcome: 'Sub-1s query response for 30-day rolling data.',
+      tech: ['ClickHouse', 'Kafka', 'Grafana']
+    },
+    {
+      id: 'sd8',
+      icon: 'bi-robot',
+      title: 'MLOps Platform',
+      tech: 'Kubeflow · TensorFlow · Seldon',
+      summary: 'End-to-end ML platform for model training and serving at scale.',
+      details: ['Kubeflow for pipeline orchestration', 'TensorFlow for model training', 'Seldon for model serving', 'Model monitoring and drift detection'],
+      challenges: 'GPU scheduling and resource optimization.',
+      outcome: '50% reduction in model deployment time.',
+      tech: ['Kubeflow', 'TensorFlow', 'Seldon']
+    }
+  ];
+
+  // 10 Projects for pagination demo
+  const projects = [
+    {
+      id: 'p1',
+      tags: ['ReactJS', 'Node.js', 'MongoDB'],
+      title: 'E‑commerce Platform',
+      summary: 'Full‑stack MERN application with payment integration, admin dashboard, and real‑time inventory.',
+      details: ['ReactJS frontend', 'Node.js backend', 'MongoDB storage', 'Stripe/PayPal integration', 'Real-time inventory with WebSocket', 'JWT authentication'],
+      architecture: 'MVC architecture with React, Node.js, MongoDB. Redis for session caching.',
+      challenges: 'Inventory consistency during high-traffic sales.',
+      outcome: '500+ products, 1k+ concurrent users during launch sale.',
+      tech: ['ReactJS', 'Node.js', 'MongoDB', 'Redis', 'WebSocket'],
+      link: 'github.com/yash/ecommerce'
+    },
+    {
+      id: 'p2',
+      tags: ['Python', 'TensorFlow', 'Flask'],
+      title: 'AI Image Classifier API',
+      summary: 'Deep learning model for image classification with REST API and batch processing.',
+      details: ['TensorFlow model (94% accuracy)', 'Flask REST API with Swagger', 'Celery for async processing', 'Redis caching'],
+      architecture: 'Flask API + Celery workers + Redis cache. ONNX for optimization.',
+      challenges: 'Model inference latency optimization.',
+      outcome: '94% accuracy, 200ms inference time, 10k+ requests/day.',
+      tech: ['Python', 'TensorFlow', 'Flask', 'Celery', 'Redis'],
+      link: 'github.com/yash/image-classifier'
+    },
+    {
+      id: 'p3',
+      tags: ['Docker', 'Go', 'Redis'],
+      title: 'URL Shortener Service',
+      summary: 'High‑performance URL shortener with rate limiting, click analytics, and Redis caching.',
+      details: ['Go for high concurrency', 'Redis for caching and rate limiting', 'PostgreSQL for analytics', 'Dockerized deployment'],
+      architecture: 'Go HTTP server + Redis cache + PostgreSQL storage.',
+      challenges: 'Collision-free shortcode generation.',
+      outcome: '5k+ requests/sec, 50ms latency, 99.9% uptime.',
+      tech: ['Docker', 'Go', 'Redis', 'PostgreSQL'],
+      link: 'github.com/yash/url-shortener'
+    },
+    {
+      id: 'p4',
+      tags: ['React', 'WebSocket', 'Node.js'],
+      title: 'Real-Time Collaboration Tool',
+      summary: 'Document collaboration tool with live cursors, WebSocket sync, and version history.',
+      details: ['React with ProseMirror', 'Socket.io for WebSocket', 'Operational Transformation', 'Diff-based version history'],
+      architecture: 'React + ProseMirror, Node.js + Socket.io, MongoDB with versioning.',
+      challenges: 'Implementing Operational Transformation.',
+      outcome: '50+ concurrent users, sub-100ms sync latency.',
+      tech: ['React', 'WebSocket', 'Node.js', 'MongoDB'],
+      link: 'github.com/yash/collab-tool'
+    },
+    {
+      id: 'p5',
+      tags: ['Next.js', 'Tailwind', 'Prisma'],
+      title: 'SaaS Dashboard Platform',
+      summary: 'Multi-tenant SaaS dashboard with analytics, user management, and billing.',
+      details: ['Next.js 14 with App Router', 'Tailwind CSS for styling', 'Prisma for database ORM', 'Stripe billing integration'],
+      architecture: 'Next.js full-stack with Prisma, PostgreSQL, Stripe API.',
+      challenges: 'Multi-tenant data isolation and billing logic.',
+      outcome: 'Launched with 50+ beta customers.',
+      tech: ['Next.js', 'Tailwind', 'Prisma', 'PostgreSQL'],
+      link: 'github.com/yash/saas-dashboard'
+    },
+    {
+      id: 'p6',
+      tags: ['Python', 'FastAPI', 'PostgreSQL'],
+      title: 'REST API for Supply Chain Management',
+      summary: 'FastAPI-based REST API for supply chain tracking and inventory management.',
+      details: ['FastAPI for high performance', 'PostgreSQL for data persistence', 'JWT authentication', 'Webhook system for third-party integrations'],
+      architecture: 'FastAPI + PostgreSQL + Redis. Microservices for event handling.',
+      challenges: 'Complex product hierarchy queries optimization.',
+      outcome: '500ms response time for complex queries, 99.95% uptime.',
+      tech: ['Python', 'FastAPI', 'PostgreSQL', 'Redis'],
+      link: 'github.com/yash/supply-chain-api'
+    },
+    {
+      id: 'p7',
+      tags: ['Go', 'MongoDB', 'gRPC'],
+      title: 'Payment Processing Microservice',
+      summary: 'gRPC-based payment processing microservice with idempotency and retry logic.',
+      details: ['Go for performance', 'gRPC for internal communication', 'MongoDB for transaction logging', 'Idempotent operations'],
+      architecture: 'Go gRPC server + MongoDB. Idempotency with request IDs.',
+      challenges: 'Idempotency and transaction consistency.',
+      outcome: '2ms latency, 100% transaction consistency.',
+      tech: ['Go', 'MongoDB', 'gRPC'],
+      link: 'github.com/yash/payment-service'
+    },
+    {
+      id: 'p8',
+      tags: ['React Native', 'Node.js', 'WebSocket'],
+      title: 'Real-Time Chat Application',
+      summary: 'Cross-platform chat app with real-time messaging, typing indicators, and read receipts.',
+      details: ['React Native for mobile', 'Socket.io for WebSocket', 'PostgreSQL for message persistence', 'Redis for presence tracking'],
+      architecture: 'React Native + Node.js + Socket.io + PostgreSQL + Redis.',
+      challenges: 'Handling offline messages and backpressure.',
+      outcome: '10k+ active users, sub-50ms message latency.',
+      tech: ['React Native', 'Node.js', 'WebSocket', 'PostgreSQL'],
+      link: 'github.com/yash/chat-app'
+    },
+    {
+      id: 'p9',
+      tags: ['Python', 'Airflow', 'Snowflake'],
+      title: 'ETL Data Pipeline',
+      summary: 'Airflow-powered ETL pipeline processing 10GB+ of data daily.',
+      details: ['Apache Airflow for orchestration', 'Snowflake for data warehousing', 'dbt for transformations', 'Monitoring with Grafana'],
+      architecture: 'Airflow DAGs + Snowflake + dbt. Data from multiple sources.',
+      challenges: 'Handling late-arriving data and backfills.',
+      outcome: '10GB+ processed daily, 90% faster than previous solution.',
+      tech: ['Python', 'Airflow', 'Snowflake', 'dbt'],
+      link: 'github.com/yash/etl-pipeline'
+    },
+    {
+      id: 'p10',
+      tags: ['Vue', 'Django', 'Redis'],
+      title: 'Job Board Platform',
+      summary: 'Full-stack job board with company profiles, job posting, and application tracking.',
+      details: ['Vue.js frontend', 'Django REST backend', 'PostgreSQL database', 'Redis for caching', 'Elasticsearch for search'],
+      architecture: 'Vue + Django + PostgreSQL + Elasticsearch.',
+      challenges: 'Full-text search across job descriptions.',
+      outcome: '100+ companies, 1000+ job listings.',
+      tech: ['Vue', 'Django', 'Redis', 'Elasticsearch'],
+      link: 'github.com/yash/job-board'
+    }
+  ];
+
+  const contactItems = [
+    { icon: 'bi-linkedin', label: 'linkedin.com/in/ypr24', href: '#' },
+    { icon: 'bi-envelope', label: 'yashp241195@gmail.com', href: '#' }
+  ];
+
+  const socialLinks = [
+    { icon: 'bi-github', href: '#' },
+    { icon: 'bi-linkedin', href: '#' },
+    { icon: 'bi-envelope', href: '#' }
+  ];
+
+  // -------- PAGINATION STATE --------
+  let sdCurrentPage = 1;
+  let sdItemsPerPage = 4;
+  let projectCurrentPage = 1;
+  let projectItemsPerPage = 3;
+
+  // -------- RENDER SKILLS --------
+  function renderSkills() {
+    const container = $('#skillsContainer');
+    container.empty();
+    skillsData.forEach(s => {
+      container.append(`
+        <div class="col-6 col-md-3">
+          <div class="skill-card">
+            <div class="category">${s.category}</div>
+            <div class="items">${s.items}</div>
+          </div>
+        </div>
+      `);
+    });
+  }
+
+  // -------- RENDER SYSTEM DESIGN WITH PAGINATION --------
+  function renderSystemDesigns() {
+    const container = $('#systemDesignList');
+    container.empty();
+    
+    const start = (sdCurrentPage - 1) * sdItemsPerPage;
+    const end = start + sdItemsPerPage;
+    const pageItems = systemDesigns.slice(start, end);
+    
+    pageItems.forEach(sd => {
+      container.append(`
+        <div class="sd-card" onclick="showDetail('sd', '${sd.id}')">
+          <div class="d-flex">
+            <div class="flex-shrink-0"><i class="bi ${sd.icon} sd-icon"></i></div>
+            <div style="flex:1;">
+              <h5>${sd.title}</h5>
+              <div class="tech-stack" style="font-size:0.82rem;color:#0a1628;"><i class="bi bi-tags me-1"></i> ${sd.tech}</div>
+              <p style="font-size:0.9rem;color:#0a1628;margin-bottom:0.3rem;">${sd.summary}</p>
+              <span class="view-detail">Click to view full architecture <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+      `);
+    });
+    
+    renderSdPagination();
+  }
+
+  // -------- RENDER PROJECTS WITH PAGINATION --------
+  function renderProjects() {
+    const container = $('#projectList');
+    container.empty();
+    
+    const start = (projectCurrentPage - 1) * projectItemsPerPage;
+    const end = start + projectItemsPerPage;
+    const pageItems = projects.slice(start, end);
+    
+    pageItems.forEach(p => {
+      container.append(`
+        <div class="project-card" onclick="showDetail('project', '${p.id}')">
+          <div class="tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+          <h5>${p.title}</h5>
+          <p>${p.summary}</p>
+          <span class="view-detail">Click to view full details <i class="bi bi-arrow-right"></i></span>
+        </div>
+      `);
+    });
+    
+    renderProjectPagination();
+  }
+
+  // -------- PAGINATION RENDER --------
+  function renderSdPagination() {
+    const totalPages = Math.ceil(systemDesigns.length / sdItemsPerPage);
+    const container = $('#sd-pagination');
+    container.empty();
+    
+    if (totalPages <= 1) return;
+    
+    // Previous arrow
+    container.append(`<button class="page-btn arrow" onclick="goToSdPage(${sdCurrentPage - 1})" ${sdCurrentPage <= 1 ? 'disabled style="opacity:0.4;"' : ''}><i class="bi bi-chevron-left"></i></button>`);
+    
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+      container.append(`<button class="page-btn ${i === sdCurrentPage ? 'active' : ''}" onclick="goToSdPage(${i})">${i}</button>`);
+    }
+    
+    // Next arrow
+    container.append(`<button class="page-btn arrow" onclick="goToSdPage(${sdCurrentPage + 1})" ${sdCurrentPage >= totalPages ? 'disabled style="opacity:0.4;"' : ''}><i class="bi bi-chevron-right"></i></button>`);
+    
+    // Info
+    const start = (sdCurrentPage - 1) * sdItemsPerPage + 1;
+    const end = Math.min(sdCurrentPage * sdItemsPerPage, systemDesigns.length);
+    container.append(`<span class="page-info">${start}–${end} of ${systemDesigns.length}</span>`);
+  }
+
+  function renderProjectPagination() {
+    const totalPages = Math.ceil(projects.length / projectItemsPerPage);
+    const container = $('#project-pagination');
+    container.empty();
+    
+    if (totalPages <= 1) return;
+    
+    container.append(`<button class="page-btn arrow" onclick="goToProjectPage(${projectCurrentPage - 1})" ${projectCurrentPage <= 1 ? 'disabled style="opacity:0.4;"' : ''}><i class="bi bi-chevron-left"></i></button>`);
+    
+    for (let i = 1; i <= totalPages; i++) {
+      container.append(`<button class="page-btn ${i === projectCurrentPage ? 'active' : ''}" onclick="goToProjectPage(${i})">${i}</button>`);
+    }
+    
+    container.append(`<button class="page-btn arrow" onclick="goToProjectPage(${projectCurrentPage + 1})" ${projectCurrentPage >= totalPages ? 'disabled style="opacity:0.4;"' : ''}><i class="bi bi-chevron-right"></i></button>`);
+    
+    const start = (projectCurrentPage - 1) * projectItemsPerPage + 1;
+    const end = Math.min(projectCurrentPage * projectItemsPerPage, projects.length);
+    container.append(`<span class="page-info">${start}–${end} of ${projects.length}</span>`);
+  }
+
+  // -------- PAGE NAVIGATION FUNCTIONS --------
+  window.goToSdPage = function(page) {
+    const totalPages = Math.ceil(systemDesigns.length / sdItemsPerPage);
+    if (page < 1 || page > totalPages) return;
+    sdCurrentPage = page;
+    renderSystemDesigns();
+    // Scroll to top of section
+    $('html, body').animate({ scrollTop: $('#system-design-section').offset().top - 70 }, 300);
+  };
+
+  window.goToProjectPage = function(page) {
+    const totalPages = Math.ceil(projects.length / projectItemsPerPage);
+    if (page < 1 || page > totalPages) return;
+    projectCurrentPage = page;
+    renderProjects();
+    $('html, body').animate({ scrollTop: $('#projects-section').offset().top - 70 }, 300);
+  };
+
+  window.changeSdItemsPerPage = function() {
+    sdItemsPerPage = parseInt($('#sd-items-per-page').val());
+    sdCurrentPage = 1;
+    renderSystemDesigns();
+  };
+
+  window.changeProjectItemsPerPage = function() {
+    projectItemsPerPage = parseInt($('#project-items-per-page').val());
+    projectCurrentPage = 1;
+    renderProjects();
+  };
+
+  // -------- SHOW DETAIL --------
+  window.showDetail = function(type, id) {
+    if (type === 'sd') {
+      const item = systemDesigns.find(s => s.id === id);
+      if (!item) return;
+      $('#sd-list').addClass('hidden');
+      $('#sd-detail').addClass('active');
+      renderDetail('sd', item);
+    } else {
+      const item = projects.find(p => p.id === id);
+      if (!item) return;
+      $('#project-list').addClass('hidden');
+      $('#project-detail').addClass('active');
+      renderDetail('project', item);
+    }
+    $('html, body').animate({ scrollTop: $('#' + (type === 'sd' ? 'system-design-section' : 'projects-section')).offset().top - 70 }, 300);
+  };
+
+  // -------- SHOW LIST --------
+  window.showList = function(type) {
+    if (type === 'sd') {
+      $('#sd-list').removeClass('hidden');
+      $('#sd-detail').removeClass('active');
+    } else {
+      $('#project-list').removeClass('hidden');
+      $('#project-detail').removeClass('active');
+    }
+  };
+
+  // -------- RENDER DETAIL --------
+  function renderDetail(type, item) {
+    const container = type === 'sd' ? $('#sd-detail-content') : $('#project-detail-content');
+    
+    if (type === 'sd') {
+      container.html(`
+        <div class="detail-section">
+          <div class="detail-header">
+            <h2><i class="bi ${item.icon}" style="color:#1a4a7a;margin-right:0.5rem;"></i>${item.title}</h2>
+          </div>
+          <div class="detail-meta">
+            <span><strong>Tech Stack:</strong> ${item.tech.join(', ')}</span>
+          </div>
+          <div class="detail-body">
+            <h4>Overview</h4>
+            <p>${item.summary}</p>
+            
+            <h4>Key Design Decisions</h4>
+            <ul>${item.details.map(d => `<li>${d}</li>`).join('')}</ul>
+            
+            <h4>Challenges</h4>
+            <p>${item.challenges}</p>
+            
+            <h4>Outcome</h4>
+            <div class="highlight-box">
+              <strong>✅ ${item.outcome}</strong>
+            </div>
+            
+            <h4>Technologies Used</h4>
+            <div>${item.tech.map(t => `<span class="tech-badge">${t}</span>`).join('')}</div>
+          </div>
+        </div>
+      `);
+    } else {
+      container.html(`
+        <div class="detail-section">
+          <div class="detail-header">
+            <h2>${item.title}</h2>
+          </div>
+          <div class="detail-meta">
+            <span><strong>Tech Stack:</strong> ${item.tech.join(', ')}</span>
+            <span><strong>GitHub:</strong> <a href="#" style="color:#1a4a7a;">${item.link}</a></span>
+          </div>
+          <div class="detail-body">
+            <h4>Overview</h4>
+            <p>${item.summary}</p>
+            
+            <h4>Key Features</h4>
+            <ul>${item.details.map(d => `<li>${d}</li>`).join('')}</ul>
+            
+            <h4>Architecture</h4>
+            <p>${item.architecture}</p>
+            
+            <h4>Challenges</h4>
+            <p>${item.challenges}</p>
+            
+            <h4>Outcome</h4>
+            <div class="highlight-box">
+              <strong>✅ ${item.outcome}</strong>
+            </div>
+            
+            <h4>Technologies Used</h4>
+            <div>${item.tech.map(t => `<span class="tech-badge">${t}</span>`).join('')}</div>
+          </div>
+        </div>
+      `);
+    }
+  }
+
+  // -------- RENDER CONTACT --------
+  function renderContact() {
+    const container = $('#contactList');
+    container.empty();
+    contactItems.forEach(c => {
+      container.append(`
+        <div class="contact-item">
+          <i class="bi ${c.icon}"></i>
+          <a href="${c.href}">${c.label}</a>
+        </div>
+      `);
+    });
+  }
+
+  // -------- RENDER FOOTER --------
+  function renderFooter() {
+    const container = $('#footerLinks');
+    container.empty();
+    socialLinks.forEach(s => {
+      container.append(`<a href="${s.href}"><i class="bi ${s.icon}"></i></a>`);
+    });
+  }
+
+  // -------- CALL ALL --------
+  renderSkills();
+  renderSystemDesigns();
+  renderProjects();
+  renderContact();
+  renderFooter();
+
+});
+</script>
+
 </body>
 </html>
